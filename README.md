@@ -1,72 +1,75 @@
-# m4-final
-# DegenToken Smart Contract
+# DegenToken
 
-This is the README file for the DegenToken smart contract. The DegenToken is an ERC20 token that implements additional functionalities to support non-fungible tokens (NFTs) representing market items. It allows users to create, buy, and own unique market items using the DegenToken.
+DegenToken is an ERC-20 token smart contract written in Solidity. It allows players to interact with a collection of unique Pokemons represented by ERC-20 tokens. Players can mint new tokens, transfer them, burn tokens, and redeem them to acquire Pokemons.
 
-This repository houses the Solidity smart contract named "DegenToken," which serves as a decentralized application (DApp) for a simple token-based marketplace. The contract effectively fulfills the following key functionalities:
+## Features
 
-1. **Minting New Tokens**: The platform can generate new tokens and allocate them as rewards to players. Only the contract owner possesses the authority to mint tokens, ensuring a controlled token supply.
+- Mint new tokens and assign them to a specified address (Only the contract owner can perform this action).
+- Transfer tokens to another address.
+- View all available Pokemons and their details.
+- Redeem a Pokemon using tokens.
+- Burn a specified amount of tokens.
+- Check the token balance of the caller (player).
 
-2. **Transferring Tokens**: Players have the flexibility to transfer their tokens to other participants within the system, promoting peer-to-peer token exchange.
+## Requirements
 
-3. **Redeeming Tokens**: Players can seamlessly redeem their accumulated tokens to obtain items available in the in-game store, facilitating a rewarding and engaging gaming experience.
+- Solidity ^0.8.18
+- OpenZeppelin library (imported contracts)
 
-4. **Checking Token Balance**: At any given time, players can conveniently check their token balance, providing them with real-time visibility of their token holdings.
+## Installation
 
-5. **Burning Tokens**: The contract allows anyone to burn their own tokens that are no longer needed. This process helps in removing tokens from circulation, if desired, thereby contributing to the overall token economy's stability.
+This project utilizes OpenZeppelin library for ERC-20 implementation. To get started, make sure to have the OpenZeppelin library installed.
 
-By encompassing these essential functionalities, the DegenToken smart contract empowers users to participate actively in the token-based store, fostering a vibrant and interactive gaming ecosystem.
+1. Install OpenZeppelin:
 
-## Introduction
+```bash
+npm install @openzeppelin/contracts
+```
 
-DegenToken is an ERC20 token that extends the standard ERC20 functionality to provide non-fungible tokens (NFTs) representing various market items. Each market item is uniquely identified by an item ID and has a name and price associated with it. Users can interact with the smart contract to view available market items, buy them using Degen tokens, and keep track of the items they own.
+2. Deploy the smart contract to the desired Ethereum network.
 
-## Getting Started
+## Usage
 
-To use the DegenToken smart contract, you need to have the required development environment set up. Make sure you have:
+The DegenToken contract provides several functions to interact with the tokens and Pokemons.
 
-- A development environment with Solidity compiler support (version 0.8.9 or compatible).
-- Access to the OpenZeppelin contracts library.
+### Constructor
 
-## Smart Contract Overview
+- `constructor()`: Initializes the ERC-20 token with the name "Degen" and the symbol "DGN". During contract deployment, a set of preset Pokemons (Bulbasaur, Charmander, Squirtle, Pikachu, and Eevee) will be made available for redemption.
 
-The DegenToken smart contract is implemented in Solidity and inherits from the following contracts:
+### Mint Tokens
 
-- `ERC20`: This contract implements the ERC20 standard functionality for a fungible token.
-- `ERC20Burnable`: This contract extends ERC20 to allow tokens to be burned by the owner.
-- `Ownable`: This contract provides basic authorization control and restricts some functions to the contract owner.
+- `function mintTokens(address to, uint256 amount) public onlyOwner`: Allows the contract owner to mint and assign new tokens to a specified address.
 
-The smart contract introduces three main concepts:
+### Transfer Tokens
 
-1. Market Item: A struct representing a market item, containing its item ID, name, and price.
-2. Market Items Mapping: A mapping to store the market items by their item ID.
-3. My Items Mapping: A mapping to store the items owned by each address and their respective quantities.
+- `function transferTokens(address recipient, uint256 amount) external`: Allows players to transfer their tokens to another address.
 
-## Functionality
+### Show Available Pokemons
 
-The DegenToken smart contract offers the following functionalities:
+- `function showAvailablePokemons() external view returns (Pokemon[] memory)`: Allows players to view all available Pokemons and their details.
 
-1. **Minting**: The contract owner can create new Degen tokens and assign them to a specified address.
+### Redeem Pokemon
 
-2. **Adding Market Items**: The contract owner can add new market items to the contract during deployment. These items will be available for users to purchase.
+- `function redeemPokemon(uint256 choice) external`: Allows players to redeem a Pokemon using tokens. Players must provide the choice of the desired Pokemon, and the corresponding token amount will be burned from their balance.
 
-3. **Viewing Market Items**: Users can view all available market items and their details, such as name and price.
+### Burn Tokens
 
-4. **Buying Market Items**: Users can purchase market items using their Degen tokens. The tokens will be transferred from the buyer to the contract owner, and the buyer will own the purchased item.
+- `function burnTokens(uint256 amount) external`: Allows players to burn (destroy) a specified amount of their tokens.
 
-5. **Viewing Owned Items**: Users can view the market items they own and their respective quantities.
+### Check Balance
 
-## Testing
-
-The DegenToken smart contract should be thoroughly tested in a development or test environment before deployment to a live network. The OpenZeppelin Test Helpers library or other testing frameworks can be used to write and run unit tests for the contract.
-
-## Contributing
-
-Contributions to the DegenToken smart contract are welcome. If you find a bug, have a suggestion, or want to propose a new feature, feel free to open an issue or submit a pull request. Please follow the established coding style and guidelines.
+- `function checkBalance() external view returns (uint256)`: Allows players to check the token balance of their address.
 
 ## License
 
-The DegenToken smart contract is distributed under the MIT License. See [LICENSE](LICENSE) for more information.
+This project is licensed under the MIT License. You can find the full text of the license in the file named `LICENSE`.
 
-## Authors
-Eiron Maningat
+## Author
+
+Eiron Maningat - Mapua University
+
+## Contributing
+
+If you find any issues or have suggestions for improvement, feel free to open an issue or submit a pull request.
+
+Please note that this README assumes a general familiarity with Solidity, ERC-20 tokens, and smart contract deployment on Ethereum networks. Additionally, this is a basic README template and can be further customized based on your specific project's needs.
